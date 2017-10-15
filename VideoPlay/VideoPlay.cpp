@@ -64,6 +64,7 @@ void VideoPlay::LabelDisplayMat(QLabel *label, cv::Mat &mat)
     label->setPixmap(QPixmap::fromImage(Img));
 }
 
+//—” ±∫¡√Î∫Ø ˝
 void VideoPlay::delayMsec(int iMsec)
 {
     clock_t now = clock();
