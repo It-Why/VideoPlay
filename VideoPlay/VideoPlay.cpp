@@ -1,6 +1,7 @@
 #include "VideoPlay.h"
 #include <qfiledialog.h>
 #include <time.h>
+#include <Windows.h>
 
 VideoPlay::VideoPlay(QWidget *parent)
     : QMainWindow(parent)
@@ -20,17 +21,18 @@ void VideoPlay::OnButtonChooseVideo()
         tr("Video Files (*.avi *.mp4 *.flv)"));
     if (fileName.size())
     {
-        VideoCapture video(fileName.toStdString());
+        cv::VideoCapture video(fileName.toStdString());
         if (video.isOpened())
         {
             int iFPS = video.get(CV_CAP_PROP_FPS);//获取视频帧率
             int iDelay = 1000 / iFPS;//计算每帧之间的延时
-            Mat frame;//定义当前播放帧
+            cv::Mat frame;//定义当前播放帧
             while (video.read(frame))//播放视频
             {
                 imshow("VideoPlay", frame);
                 //LabelDisplayMat(ui.label_VideoView, frame);
-                waitKey(m_iSpeed < 0 ? iDelay * (-m_iSpeed + 1) : iDelay / (m_iSpeed + 1));//按设置的播放速度播放
+                //Sleep(m_iSpeed < 0 ? iDelay * (-m_iSpeed + 1) : iDelay / (m_iSpeed + 1));
+                cv::waitKey(m_iSpeed < 0 ? iDelay * (-m_iSpeed + 1) : iDelay / (m_iSpeed + 1));//按设置的播放速度播放
                 //delayMsec(iDelay);
             }
             video.release();
@@ -62,6 +64,7 @@ void VideoPlay::LabelDisplayMat(QLabel *label, cv::Mat &mat)
         Img = QImage((const uchar*)(mat.data), mat.cols, mat.rows, mat.cols*mat.channels(), QImage::Format_Indexed8);
     }
     label->setPixmap(QPixmap::fromImage(Img));
+    label->show();
 }
 
 //延时毫秒函数
@@ -78,6 +81,6 @@ void VideoPlay::OnSpeedChange(int iSpeed)
 
 void VideoPlay::OnButtonExit()
 {
-    destroyAllWindows();
+    cv::destroyAllWindows();
     exit(0);
 }

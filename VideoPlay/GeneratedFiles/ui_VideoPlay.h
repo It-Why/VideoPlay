@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -32,6 +33,8 @@ public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
     QVBoxLayout *verticalLayout_2;
+    QLabel *label_VideoView;
+    QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_ChooseVideo;
     QLabel *label_SpeedMod;
     QSpinBox *spinBox_Speed;
@@ -44,7 +47,7 @@ public:
     {
         if (VideoPlayClass->objectName().isEmpty())
             VideoPlayClass->setObjectName(QStringLiteral("VideoPlayClass"));
-        VideoPlayClass->resize(275, 236);
+        VideoPlayClass->resize(620, 398);
         centralWidget = new QWidget(VideoPlayClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -54,37 +57,51 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        label_VideoView = new QLabel(centralWidget);
+        label_VideoView->setObjectName(QStringLiteral("label_VideoView"));
+        label_VideoView->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_2->addWidget(label_VideoView);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         pushButton_ChooseVideo = new QPushButton(centralWidget);
         pushButton_ChooseVideo->setObjectName(QStringLiteral("pushButton_ChooseVideo"));
 
-        verticalLayout_2->addWidget(pushButton_ChooseVideo);
+        horizontalLayout->addWidget(pushButton_ChooseVideo);
 
         label_SpeedMod = new QLabel(centralWidget);
         label_SpeedMod->setObjectName(QStringLiteral("label_SpeedMod"));
+        label_SpeedMod->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_2->addWidget(label_SpeedMod);
+        horizontalLayout->addWidget(label_SpeedMod);
 
         spinBox_Speed = new QSpinBox(centralWidget);
         spinBox_Speed->setObjectName(QStringLiteral("spinBox_Speed"));
         spinBox_Speed->setMinimum(-10);
         spinBox_Speed->setMaximum(10);
 
-        verticalLayout_2->addWidget(spinBox_Speed);
+        horizontalLayout->addWidget(spinBox_Speed);
+
+        horizontalLayout->setStretch(0, 1);
+        horizontalLayout->setStretch(1, 1);
+        horizontalLayout->setStretch(2, 1);
+
+        verticalLayout_2->addLayout(horizontalLayout);
 
         pushButton_Exit = new QPushButton(centralWidget);
         pushButton_Exit->setObjectName(QStringLiteral("pushButton_Exit"));
 
         verticalLayout_2->addWidget(pushButton_Exit);
 
-        verticalLayout_2->setStretch(0, 1);
-        verticalLayout_2->setStretch(1, 1);
 
         verticalLayout->addLayout(verticalLayout_2);
 
         VideoPlayClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(VideoPlayClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 275, 23));
+        menuBar->setGeometry(QRect(0, 0, 620, 23));
         VideoPlayClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(VideoPlayClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -101,6 +118,7 @@ public:
     void retranslateUi(QMainWindow *VideoPlayClass)
     {
         VideoPlayClass->setWindowTitle(QApplication::translate("VideoPlayClass", "VideoPlay", Q_NULLPTR));
+        label_VideoView->setText(QApplication::translate("VideoPlayClass", "VideoView", Q_NULLPTR));
         pushButton_ChooseVideo->setText(QApplication::translate("VideoPlayClass", "ChooseVideo", Q_NULLPTR));
         label_SpeedMod->setText(QApplication::translate("VideoPlayClass", "SpeedMod:", Q_NULLPTR));
         pushButton_Exit->setText(QApplication::translate("VideoPlayClass", "Exit", Q_NULLPTR));
