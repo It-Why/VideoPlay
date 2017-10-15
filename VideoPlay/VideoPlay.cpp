@@ -64,7 +64,9 @@ void VideoPlay::LabelDisplayMat(QLabel *label, cv::Mat &mat)
         Img = QImage((const uchar*)(mat.data), mat.cols, mat.rows, mat.cols*mat.channels(), QImage::Format_Indexed8);
     }
     label->setPixmap(QPixmap::fromImage(Img));
+    label->resize(Img.size());
     label->show();
+    this->update();//刷新界面
 }
 
 //延时毫秒函数
