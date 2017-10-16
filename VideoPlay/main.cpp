@@ -10,9 +10,11 @@ By£ºWhy
 **********************************************************/
 #include "VideoPlay.h"
 #include <QtWidgets/QApplication>
+#include <QTextCodec>
 
 int main(int argc, char *argv[])
 {
+    QTextCodec::codecForLocale();
     QApplication a(argc, argv);
     VideoPlay w;
     w.show();
